@@ -11,13 +11,20 @@ function TamagotchiList(props){
           hunger={pet.hunger}
           rest={pet.rest}
           activity={pet.activity}
+          id={pet.id}
+          onClickFeed={props.onClickFeed}
+          onClickSleep={props.onClickSleep}
+          onClickPlay={props.onClickPlay}
           key={pet.id} />)}
     </div>
   );
 }
 
 TamagotchiList.propTypes = {
-  tamagotchiList: PropTypes.array.isRequired
+  tamagotchiList: PropTypes.array.isRequired,
+  onClickFeed: PropTypes.func,
+  onClickSleep: PropTypes.func,
+  onClickPlay: PropTypes.func,
 }
 
 export default TamagotchiList;
