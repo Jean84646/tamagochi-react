@@ -13,16 +13,16 @@ class App extends React.Component {
       masterTamagotchiList: [
         {
           name: "Dewberry",
-          hunger: 50,
-          rest: 50,
-          activity: 50,
+          hunger: 100,
+          rest: 100,
+          activity: 20,
           id: "1"
         },
         {
           name: "Dollop",
-          hunger: 70,
-          rest: 70,
-          activity: 70,
+          hunger: 10,
+          rest: 80,
+          activity: 90,
           id: "2"
         }
       ]
@@ -31,6 +31,7 @@ class App extends React.Component {
     this.handleClickFeed = this.handleClickFeed.bind(this);
     this.handleClickSleep = this.handleClickSleep.bind(this);
     this.handleClickPlay = this.handleClickPlay.bind(this);
+    this.updateStats = this.updateStats.bind(this);
   }
 
   handleCreateTamagotchi(newTamagotchi){
@@ -65,6 +66,27 @@ class App extends React.Component {
       if(pet.id === id) {
         pet.activity += 5;
       }
+    });
+    this.setState({masterTamagotchiList: newTamagotchiList});
+  }
+
+  componentDidMount() {
+    this.gameTimer = setInterval(() =>
+      this.updateStats(),
+      2000
+    );
+  }
+
+  componentWillUnmount(){
+    clearInterval(this.gameTimer);
+  }
+
+  updateStats() {
+    let newTamagotchiList = this.state.masterTamagotchiList.slice();
+    newTamagotchiList.map((pet) => {
+      pet.hunger -= 2;
+      pet.rest--;
+      pet.activity -= 3;
     });
     this.setState({masterTamagotchiList: newTamagotchiList});
   }
